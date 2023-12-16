@@ -5,17 +5,13 @@ use pest_derive::Parser;
 #[grammar = "mermaid.pest"]
 pub struct MParser;
 
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+        let p1 = MParser::parse(Rule::node, "x{1}");
+        let p2 = MParser::parse(Rule::flowchart, "x{1} --> y");
     }
 }
