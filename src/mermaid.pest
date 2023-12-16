@@ -1,0 +1,23 @@
+flowchart = { SOI ~ (expr)* ~ EOI }
+
+
+WHITESPACE = _{ " " | "\t" | "\r" | "\n" }
+// indented line
+
+
+node_id = @{ ASCII_ALPHANUMERIC+ } // ok
+txt     =  { ASCII_ALPHANUMERIC* } // not ok, utf8
+
+// test1: grammer is ok in quotes
+
+node_rombe = { node_id ~ "{" ~ txt ~ "}" }
+node       = { (node_rombe | node_id) }
+arrow      = { (arrow_cap | arrow_r) }
+arrow_r    = { "-->" }
+arrow_cap  = { arrow_r ~ ("|" ~ txt ~ "|") }
+
+link = { node ~ (arrow) ~ node }
+
+expr = { link | node }
+// or more
+
